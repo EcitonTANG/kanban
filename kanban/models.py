@@ -23,6 +23,7 @@ class Card_Tab(models.Model):
     title = models.CharField(max_length=256);
     description = models.TextField();
     card_date = models.DateField();
+    fio = models.ManyToManyField('Executor_Tab', verbose_name="executor_tab", related_name="executor_tab_name");
     executor_id = models.ForeignKey(Executor_Tab, on_delete=models.CASCADE);
     column_id = models.ForeignKey(Column_Tab, on_delete=models.CASCADE);
     
