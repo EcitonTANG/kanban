@@ -35,17 +35,13 @@ class Column_TabAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    ''' 
-        data = {
-            '': request.data.get(''),
-        }
-        serializer = Column_TabSerializer(data=data)
-            if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    '''
-    
+    def delete(self, request, pk):
+        column_tab = Column_Tab.objects.get(column_id=pk)
+        if column_tab:
+            column_tab.delete()
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
 class Card_TabAPIView(APIView):
     def get(self, request):
         cards = Card_Tab.objects.all()
