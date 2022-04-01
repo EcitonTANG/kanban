@@ -21,9 +21,14 @@ class Card_TabForColumnSerializer(serializers.ModelSerializer):
         fields = ("card_id", "executor_id", "title", "description", "card_date")
 
         
-class Column_TabSerializer(serializers.ModelSerializer):
+class Column_TabDetailSerializer(serializers.ModelSerializer):
     cards = Card_TabForColumnSerializer(many=True)
 
     class Meta:
         model = Column_Tab
         fields = ('column_id', 'column_name', 'cards')
+
+class Column_TabSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Column_Tab
+        fields = ('column_id', 'column_name')

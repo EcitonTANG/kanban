@@ -14,7 +14,7 @@ class Executor_TabAPIView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = Column_TabSerializer(data=request.data)
+        serializer = Executor_TabSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -25,7 +25,7 @@ class Executor_TabAPIView(APIView):
 class Column_TabAPIView(APIView):
     def get(self, request):
         columns = Column_Tab.objects.all()
-        serializer = Column_TabSerializer(columns, many=True)
+        serializer = Column_TabDetailSerializer(columns, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -53,7 +53,7 @@ class Card_TabAPIView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = Column_TabSerializer(data=request.data)
+        serializer = Card_TabSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
