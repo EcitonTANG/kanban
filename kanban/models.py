@@ -13,8 +13,7 @@ class Executor_Tab(models.Model):
 class Column_Tab(models.Model):
     column_id = models.IntegerField(primary_key=True);
     column_name = models.CharField(max_length=128);
-    cards = models.ManyToManyField('Card_Tab', verbose_name="card_tab", related_name="card_tab_name");
-    
+
     def __str__(self):
         return self.column_id
 
@@ -23,9 +22,8 @@ class Card_Tab(models.Model):
     title = models.CharField(max_length=256);
     description = models.TextField();
     card_date = models.DateField();
-    fio = models.ManyToManyField('Executor_Tab', verbose_name="executor_tab", related_name="executor_tab_name");
-    executor_id = models.ForeignKey(Executor_Tab, on_delete=models.CASCADE);
-    column_id = models.ForeignKey(Column_Tab, on_delete=models.CASCADE);
+    executor_id = models.ForeignKey(Executor_Tab, on_delete=models.CASCADE, related_name='fioo');
+    column_id = models.ForeignKey(Column_Tab, on_delete=models.CASCADE, related_name='cards');
     
     def __str__(self):
         return self.card_id

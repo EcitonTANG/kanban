@@ -80,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'kanban',
-        'USER': 'tang',
-        'PASSWORD': 'qwerty',
+        'USER': 'postgres',
+        'PASSWORD': '6566',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
