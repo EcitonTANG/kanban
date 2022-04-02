@@ -22,5 +22,7 @@ urlpatterns = [
     path('executor', Executor_TabAPIView.as_view()),
     path('card', Card_TabAPIView.as_view()),
     path('column', Column_TabAPIView.as_view()),
-    path('column/<str:pk>', Column_TabAPIView.as_view()),
+    path('executor/<int:pk>', Executor_TabAPIView.as_view()),
+    path('column/<int:pk>', Column_TabAPIView.as_view()),
+    path('card/<int:pk>', Card_TabAPIView.as_view()),
 ]

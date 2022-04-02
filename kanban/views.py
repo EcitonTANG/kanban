@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework import generics, status
 from django.shortcuts import render
 from rest_framework.response import Response
@@ -8,6 +9,12 @@ from .serializers import *
 
 # Create your views here.
 class Executor_TabAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Executor_Tab.objects.get(pk=pk)
+        except Executor_Tab.DoesNotExist:
+            raise Http404
+
     def get(self, request):
         executors = Executor_Tab.objects.all()
         serializer = Executor_TabSerializer(executors, many=True)
@@ -19,10 +26,19 @@ class Executor_TabAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #queryset = Executor_Tab.objects.all()
-    #serializer_class = Executor_TabSerializer
+
+    def delete(self, request, pk, format=None):
+        executor = self.get_object(pk)
+        executor.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
             
 class Column_TabAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Column_Tab.objects.get(pk=pk)
+        except Column_Tab.DoesNotExist:
+            raise Http404
+
     def get(self, request):
         columns = Column_Tab.objects.all()
         serializer = Column_TabDetailSerializer(columns, many=True)
@@ -35,14 +51,18 @@ class Column_TabAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        column_tab = Column_Tab.objects.get(column_id=pk)
-        if column_tab:
-            column_tab.delete()
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, pk, format=None):
+        column = self.get_object(pk)
+        column.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class Card_TabAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Card_Tab.objects.get(pk=pk)
+        except Card_Tab.DoesNotExist:
+            raise Http404
+
     def get(self, request):
         cards = Card_Tab.objects.all()
         serializer = Card_TabSerializer(cards, many=True)
@@ -54,5 +74,8 @@ class Card_TabAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #queryset = Card_Tab.objects.all()
-    #serializer_class = Card_TabSerializer
+
+    def delete(self, request, pk, format=None):
+        card = self.get_object(pk)
+        card.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
